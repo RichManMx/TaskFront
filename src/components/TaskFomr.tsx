@@ -2,7 +2,9 @@ import { ChangeEvent, FormEvent, useState } from "react"
 import { createTaskRequest } from "../api/task";
 
 
-function TaskFomr() {
+function TaskFomr(props: {
+  refreshList: (lastLoaded: string) => void
+}) {
   const [ task, setTask] = useState({
     title:"",
     description:"",
@@ -17,7 +19,7 @@ function TaskFomr() {
     console.log(task);
     const res = await createTaskRequest(task)
     const data = await res.json()
-    console.log(data);
+    props.refreshList(new Date().toString())
     
   };
 
